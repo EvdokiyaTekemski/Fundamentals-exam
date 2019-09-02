@@ -1,0 +1,63 @@
+package com.company;
+
+import java.util.*;
+
+public class Main {
+
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+
+        String input = "";
+        Map<String, Integer> name = new LinkedHashMap<>();
+        while (!"Log out".equals(input = sc.nextLine())) {
+            String[] data = input.split(": ");
+            String comand = data[0];
+            if (comand.equals("New follower")) {
+                String nameOfUsers = data[1];
+                if (!name.containsKey(nameOfUsers))
+                    name.put(nameOfUsers, 0);
+            }
+            if (comand.equals("Like")) {
+                String nameOfStudent = data[1];
+                int count = Integer.parseInt(data[2]);
+                if (!name.containsKey(nameOfStudent)) {
+                    name.put(nameOfStudent, count);
+                } else {
+                    name.put(nameOfStudent, name.get(nameOfStudent) + count);
+                }
+            }
+            if (comand.equals("Comment")) {
+                String nameOfSt = data[1];
+                if (!name.containsKey(nameOfSt)) {
+                    name.put(nameOfSt, 1);
+                } else {
+                    name.put(nameOfSt, name.get(nameOfSt) + 1);
+                }
+            }
+            if (comand.equals("Blocked")) {
+                String blockedName = data[1];
+                if (name.containsKey(blockedName)) {
+                    name.remove(blockedName);
+                } else {
+                    System.out.printf("%s doesn't exist.%n", blockedName);
+                }
+            }
+        }
+
+            int counter = 0;
+            for (Map.Entry<String, Integer> print : name.entrySet()) {
+                counter++;
+            }
+            System.out.printf("%d followers%n", counter);
+
+            name.entrySet().stream().sorted((a, b) -> {
+                int num = Integer.compare(b.getValue(), a.getValue());
+                if (num == 0) {
+                    num = a.getKey().compareTo(b.getKey());
+                }
+                return num;
+            }).forEach(e -> System.out.printf("%s: %d%n", e.getKey(), e.getValue()));
+        }
+    }
+
+

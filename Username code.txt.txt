@@ -1,0 +1,90 @@
+package com.company;
+
+import java.util.Scanner;
+
+public class Username {
+    public static void main(String[] args) {
+        Scanner sc = new Scanner(System.in);
+        String input = "";
+        String name = sc.nextLine();
+        String word = name;
+        String upperLowerCase = "";
+        while (!"Sign up".equals(input = sc.nextLine())) {
+            String[] data = input.split(" ");
+            String comandOne = data[0];
+
+
+            if (comandOne.equals("Case")) {
+                String comandTwo = data[1];
+                if (comandTwo.equals("lower")) {
+                    upperLowerCase=name.toLowerCase();
+                    System.out.println(name.toLowerCase());
+                } else if (comandTwo.equals("upper")) {
+                    upperLowerCase=name.toUpperCase();
+                    System.out.println(name.toUpperCase());
+                }
+            }
+            if (comandOne.equals("Reverse")) {
+                int firstIndex = Integer.parseInt(data[1]);
+                int lastIndex = Integer.parseInt(data[2]);
+                String revers = name;
+                if (lastIndex <= name.length()+1 && firstIndex >= 0) {
+                    revers = revers.substring(firstIndex, lastIndex + 1);
+                    for (int i = revers.length() - 1; i >= 0; i--) {
+                        char result = revers.charAt(i);
+                        System.out.print(result);
+                    }
+                    System.out.println();
+                }
+            }
+            char r = 'a';
+            if (comandOne.equals("Replace")) {
+                String replaceWord = data[1];
+                for (int i = 0; i < replaceWord.length(); i++) {
+                    r = replaceWord.charAt(i);
+                }
+
+                word = word.replace(r, '*');
+                System.out.println(word);
+            }
+            char symbolWord = 'a';
+            if (comandOne.equals("Check")) {
+                String symbol = data[1];
+                for (int i = 0; i < symbol.length(); i++) {
+                    symbolWord = symbol.charAt(i);
+                }
+                String check = name;
+                boolean isTrue = false;
+                for (int i = 0; i < name.length(); i++) {
+                    if (name.charAt(i) == symbolWord) {
+                        isTrue = true;
+                        System.out.println("Valid");
+                        break;
+                    }else {
+                        isTrue=false;
+                    }
+                }
+                if(!isTrue) {
+                        System.out.printf("Your username must contain %c.%n", symbolWord);
+                    }
+                }
+            char cutWord='a';
+if(comandOne.equals("Cut")){
+    String cut=data[1];
+
+    if(name.contains(cut)){
+      word= word.replace(cut,"");
+        System.out.println(word);
+    }else {
+        System.out.printf("The word %s doesn't contain %s.%n",upperLowerCase,cut);
+    }
+}
+            }
+
+        }
+
+    }
+
+
+
+
